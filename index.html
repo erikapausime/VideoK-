@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Videokê - Busca de Músicas</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+    background: #f4f4f4;
+}
+
+h1{
+    text-align: center;
+    color: #333;
+}
+
+#busca{
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.total{
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.card{
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.1);
+}
+
+.codigo{
+    color: #d62828;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.cantor{
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.musica{
+    color: #555;
+    margin-top: 3px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎤 Catálogo do Videokê</h1>
+
+<input
+    type="text"
+    id="busca"
+    placeholder="Digite cantor, música ou código..."
+    onkeyup="buscar()"
+/>
+
+<div class="total" id="total"></div>
+
+<div id="lista"></div>
+
+<script>
+
+const musicas = [
+
+{ codigo:"6899", cantor:"Bruno e Marrone", musica:"Choram as Rosas" },
+{ codigo:"7694", cantor:"Ana Carolina", musica:"Rosas" },
+{ codigo:"4714", cantor:"Beatles", musica:"Hey Jude" },
+{ codigo:"4909", cantor:"Aerosmith", musica:"I Don't Want To Miss A Thing" },
+{ codigo:"4973", cantor:"A-Ha", musica:"Take On Me" }
+
+];
+
+function buscar(){
+
+    const texto =
+        document.getElementById("busca")
+        .value
+        .toLowerCase();
+
+    const resultado = musicas.filter(item =>
+
+        item.codigo.includes(texto) ||
+
+        item.cantor.toLowerCase().includes(texto) ||
+
+        item.musica.toLowerCase().includes(texto)
+
+    );
+
+    document.getElementById("total").innerHTML =
+        resultado.length + " resultado(s) encontrado(s)";
+
+    let html = "";
+
+    resultado.forEach(item => {
+
+        html += `
+        <div class="card">
+            <div class="codigo">${item.codigo}</div>
+            <div class="cantor">${item.cantor}</div>
+            <div class="musica">${item.musica}</div>
+        </div>
+        `;
+
+    });
+
+    document.getElementById("lista").innerHTML = html;
+}
+
+buscar();
+
+</script>
+
+</body>
+</html>
